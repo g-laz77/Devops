@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: true
+  
+  vars:
+     package: vim
+     doc_root: /var/www/example
+     node_version: "0.10.12"
+     node_prefix: "node-v{{node_version}}"
+     node_tarball: "{{node_prefix}}.tar.gz"
+     node_path: "/usr/local"
+     python_version: "3.6.1"
+
+  tasks:
+    - include: tasks/apt.yml    #include repos through apt.
+
+    - include: tasks/node.yml   #setup node on remote server
+
+    - include: tasks/python.yml #setup python on remote server
+
+    - name: Create custom document root
+      file: path={{ doc_root }} state=directory owner=www-data group=www-data
+
+    - name: Set up HTML file
+      copy: src=index.html dest={{ doc_root }}/index.html owner=www-data group=www-data mode=0644
+
+    - name: Setup default Apache virtual host
+      template: src=vhost.tpl dest=/etc/apache2/sites-available/000-default.conf
+    
+  handlers:
+    - name: restart apache
+      service: name=apache2 state=restarted
