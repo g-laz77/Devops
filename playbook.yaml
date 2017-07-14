@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: true
+  vars:
+     package: vim
+  tasks:
+     - name: Install Packages
+       apt: name={{ item }} state=latest
+       with_items:
+          - vim
+          - git
+          - curl
+    - name: Check if Node is installed
+      register: node_installed
+      command: node -version
+      ignore_errors: true
+
+    - name: This task is only executed if Node is installed
+      debug: var=node_install
+      when: node_installed|success
+
+    - name: This task is only executed if Node is NOT installed
+      debug: msg='Node is NOT installed'
+      when: node_installed|failed
