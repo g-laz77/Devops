@@ -20,3 +20,6 @@ sudo apt-get install git
 
 ### Install node
 Refer: https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/
+
+### Setup certbot
+Refer: https://www.digitalocean.com/community/tutorials/how-to-set-up-let-s-encrypt-certificates-for-multiple-apache-virtual-hosts-on-ubuntu-14-04
