@@ -23,3 +23,9 @@ Refer: https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/
 
 ### Setup certbot
 Refer: https://www.digitalocean.com/community/tutorials/how-to-set-up-let-s-encrypt-certificates-for-multiple-apache-virtual-hosts-on-ubuntu-14-04
+
+###Setup Clam AV
+sudo apt-get update
+sudo apt-get install clamav-daemon
+sudo apt-get install clamav
+clamscan -r|tail -n 9 >> av_result.txt

@@ -46,3 +46,5 @@ done
 
 # when you ctrl-c it should garbage cleanup
 trap "rm $lm1 $lm2; exit 1" SIGINT
+
+ clamscan -r .|tail -n 9       #call the antivirus program

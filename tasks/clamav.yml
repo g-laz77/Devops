@@ -1,0 +1,13 @@
+- name: clamAV | Checking installed version of clamAV
+  shell: /usr/bin/test "$(clamscan -V 2> /dev/null)" = v{{av_version}}
+  register: wanted_version_installed
+  ignore_errors: True
+
+- name: Install clamAV
+  apt: name={{ item }} state=latest
+       with_items:
+          - clamav
+          - clamav-daemon
+  when: wanted_version_installed.rc == 1
+  
+- name : Update clamAV
