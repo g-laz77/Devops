@@ -8,6 +8,12 @@
        with_items:
           - clamav
           - clamav-daemon
+          - clamav-freshclam
   when: wanted_version_installed.rc == 1
   
-- name : Update clamAV
+- name: Update clamAV
+  command: freshclam
+  when: wanted_version_installed.rc == 1
+
+- name: Run clamAV
+  command: clamscan -r .|tail -n 9 >> av_result.txt

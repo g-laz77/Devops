@@ -14,7 +14,7 @@ FILES=./*
 for f in $FILES
 do
    temp="$(mktemp ./temp/$f.XXXXXX)"
-   md5 "$1" > $temp
+   md5sum "$1" > $temp
 done
 
 #  clamscan -r .|tail -n 9       #call the antivirus program
