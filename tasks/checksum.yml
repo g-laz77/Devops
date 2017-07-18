@@ -1,0 +1,10 @@
+- name: Run MD5 Checksum
+  shell: ./checksum.py
+
+- name: Select files to copy
+  shell: cd /devops/temp; ls 
+  register: files_to_copy
+
+- name: Copy the checksum files
+  fetch: src=/remote/{{ item }} dest=/root/devops/prev
+  with_items: files_to_copy.stdout_lines
