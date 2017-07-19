@@ -1,6 +1,10 @@
 - name: Install Packages
-       apt: name={{ item }} state=latest
-       with_items:
-          - vim
-          - git
-          - curl
+  apt: name={{ item }} state=latest
+  with_items:
+      - vim
+      - git
+      - curl
+      - make
+      - build-essential
+      
+ 

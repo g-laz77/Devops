@@ -1,23 +1,26 @@
 ---
-- hosts: all
+- hosts: localhost
   become: true
   
   vars:
      package: vim
      doc_root: /var/www/example
-     node_version: "0.10.12"
+     node_version: "8.1.4"
      node_prefix: "node-v{{node_version}}"
      node_tarball: "{{node_prefix}}.tar.gz"
      node_path: "/usr/local"
-     python_version: "3.6.1"
+     python_version: "3.5.2"
+     av_version: "0.99.2"
 
   tasks:
-    - include: tasks/apt.yml    #include repos through apt.
-
+    - include: tasks/clamav.yml
     - include: tasks/node.yml   #setup node on remote server
 
+    - include: tasks/apt.yml    #include repos through apt.
+    
     - include: tasks/python.yml #setup python on remote server
-
+    
+    
     - name: Create custom document root
       file: path={{ doc_root }} state=directory owner=www-data group=www-data
 

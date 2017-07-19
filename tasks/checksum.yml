@@ -1,5 +1,5 @@
 - name: Run MD5 Checksum
-  shell: ./checksum.py
+  shell: ../checksum.py
 
 - name: Select files to copy
   command: cd /devops/temp; ls 

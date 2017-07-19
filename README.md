@@ -6,6 +6,10 @@ Authbase project to integrate various tools onto devops.
 ### Install Curl
 sudo apt-get install curl
 
+### Install Make and build essentials
+sudo apt-get install build-essentials
+sudo apt-get install make
+
 ### Install Certbot 
 Refer: https://certbot.eff.org/#ubuntuxenial-nginx
 
@@ -24,7 +28,7 @@ Refer: https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/
 ### Setup certbot
 Refer: https://www.digitalocean.com/community/tutorials/how-to-set-up-let-s-encrypt-certificates-for-multiple-apache-virtual-hosts-on-ubuntu-14-04
 
-###Setup Clam AV
+### Setup Clam AV
 sudo apt-get update
 sudo apt-get install clamav-daemon
 sudo apt-get install clamav

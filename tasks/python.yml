@@ -1,17 +1,17 @@
 # python_version is a given variable, eg. `3.5`
 - name: Check if python is already latest
-  command: python3 --version
+  command: python3 --version 
   register: python_version_result
-  failed_when: "{{ python_version_result.stdout | replace('Python ', '') | version_compare(python_version, '>=') }}"
+  ignore_errors: True
 
 - name: Install prerequisites
   apt: name=python-software-properties state=present
-  become: true
+  when: python_version_result.stdout.find('command not found') != -1
 
 - name: Add deadsnakes repo
   apt_repository: repo="ppa:fkrull/deadsnakes"
-  become: true
+  when: python_version_result.stdout.find('command not found') != -1
 
 - name: Install python
-  apt: name="python{{ python_version }}-dev" state=present
-  become: true
+  apt: name="python3" state=present
+  when: python_version_result.stdout.find('command not found') != -1

@@ -1,5 +1,5 @@
 - name: Node.js | Checking installed version of node.js
-  shell: /usr/bin/test "$(node -v 2> /dev/null)" = v{{node_version}}
+  shell: /usr/bin/node "$(node -v > /dev/null)" = v{{node_version}}
   register: wanted_version_installed
   ignore_errors: True
 
