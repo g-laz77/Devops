@@ -1,5 +1,5 @@
 - name: clamAV | Checking installed version of clamAV
-  shell: /usr/bin/clamscan "$(clamscan -V > )" = ClamAV {{av_version}}.*
+  shell: clamscan -V 
   register: wanted_version_installed
   ignore_errors: True
 
@@ -9,11 +9,11 @@
     - clamav
     - clamav-daemon
     - clamav-freshclam
-  when: wanted_version_installed.rc == 1
+  when: wanted_version_installed.stdout.find('command not found') != -1
   
 - name: Update clamAV
   command: freshclam
-  when: wanted_version_installed.rc == 1
+  when: wanted_version_installed.stdout.find('command not found') != -1
 
 - name: Run clamAV
   command: bash -c clamscan -r . |tail -n 9 >> av_result.txt

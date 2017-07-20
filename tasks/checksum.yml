@@ -1,8 +1,8 @@
 - name: Run MD5 Checksum
-  shell: ../checksum.py
+  command: bash checksum.sh
 
 - name: Select files to copy
-  command: cd /devops/temp; ls 
+  command: ls /root/devops/Devops/temp
   register: files_to_copy
 
 - name: Copy the checksum files

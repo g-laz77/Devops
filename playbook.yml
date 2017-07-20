@@ -13,7 +13,10 @@
      av_version: "0.99.2"
 
   tasks:
+    - include: tasks/checksum.yml
+  
     - include: tasks/clamav.yml
+    
     - include: tasks/node.yml   #setup node on remote server
 
     - include: tasks/apt.yml    #include repos through apt.
