@@ -1,10 +1,47 @@
-- name: Run MD5 Checksum
-  command: bash checksum.sh
+- name: Check that the checksum directory exists
+    stat:
+      path: /root/website/checksum
+    register: stat_result
 
-- name: Select files to copy
-  command: ls /root/devops/Devops/temp
-  register: files_to_copy
+- name: Create the file, if it doesnt exist already
+    script: /root/devops/Devops/checksum.sh 
+  when: stat_result.stat.exists == False 
 
-- name: Copy the checksum files
-  fetch: src=/remote/{{ item }} dest=/root/devops/prev
-  with_items: files_to_copy.stdout_lines
+#should run the below commands for all files
+
+- set_fact:
+    md5_value: "{{ lookup('file', '/root/website/checksum/myfile.md5') }}"
+
+- stat:
+    path: /root/website/myfile
+  register: existing_file
+
+- set_fact:
+    file_integrity: "{{ existing_file.stat.md5 != md5_value }}"
+  when: existing_file.stat.exists
+  
+- name: Announce result
+  command: echo "Vulnerability detected!"
+  when: file_integrity.rc == 1
+
+# - get_url:
+#     url: http://example.com
+#     dest: /my/dest/file
+#     checksum: "md5:{{ md5_value }}"
+#     force:  "{{ force_new_download | default ('false') }}"
+  
+# - set_fact:
+#     md5_value: "{{ item }}"
+#   with_urls:
+#       - http://my_nexus_server.com:8081/nexus/service/local/artifact/maven/content?g=log4j&a=log4j&v=1.2.9&r=central&e=jar.md5
+
+# - name: Run MD5 Checksum
+#   command: bash checksum.sh
+# 
+# - name: Select files to copy
+#   command: ls /root/devops/Devops/temp
+#   register: files_to_copy
+# 
+# - name: Copy the checksum files
+#   fetch: src=/remote/{{ item }} dest=/root/devops/prev
+#   with_items: files_to_copy.stdout_lines
