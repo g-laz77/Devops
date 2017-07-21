@@ -8,20 +8,22 @@
 
 #should run the below commands for all files
 
+  
+
 - set_fact:
-    md5_value: "{{ lookup('file', '/root/website/checksum/suhan.html.md5') }}"
+    md5_value: "{{ lookup('file', '/root/website/checksum/{{ item }}.md5') }}"
 
 - stat:
-    path: /root/website/suhan.html
+    path: /root/website/{{ item }}
   register: existing_file
 
 - set_fact:
     file_integrity: "{{ existing_file.stat.md5 == md5_value }}"
   when: existing_file.stat.exists
   
-- name: Announce result
+- name: Announce result for {{ item }}
   command: echo "Vulnerability detected!"
-  when: file_integrity
+  when: not file_integrity
 
 # - get_url:
 #     url: http://example.com

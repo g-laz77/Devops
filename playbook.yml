@@ -13,7 +13,13 @@
      av_version: "0.99.2"
 
   tasks:
+    - name: Obtaining the list of files in the web directory
+      command: ls -1 /root/website/
+      register: command_result
+      
     - include: tasks/checksum.yml
+      with_items:
+        - "{{ command_result.stdout_lines }}"
   
     - include: tasks/clamav.yml
     
