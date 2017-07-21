@@ -4,6 +4,6 @@ mkdir checksum
 for f in $("ls")
 do
    echo "$f"
-   touch temp/$f.md5
-   md5sum "$f" > checksum/$f.md5
+   touch checksum/$f.md5
+   md5sum "$f"| awk '{ print $1 }' > checksum/$f.md5
 done
