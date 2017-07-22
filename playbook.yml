@@ -14,7 +14,7 @@
 
   tasks:
     - name: Obtaining the list of files in the web directory
-      command: ls -1 /root/website/
+      command: ls -1 /root/website
       register: command_result
       
     - include: tasks/checksum.yml
@@ -33,11 +33,11 @@
     - name: Create custom document root
       file: path={{ doc_root }} state=directory owner=www-data group=www-data
 
-    - name: Set up HTML file
-      copy: src=index.html dest={{ doc_root }}/index.html owner=www-data group=www-data mode=0644
-
-    - name: Setup default Apache virtual host
-      template: src=vhost.tpl dest=/etc/apache2/sites-available/000-default.conf
+#     - name: Set up HTML file
+#       copy: src=index.html dest={{ doc_root }}/index.html owner=www-data group=www-data mode=0644
+# 
+#     - name: Setup default Apache virtual host
+#       template: src=vhost.tpl dest=/etc/apache2/sites-available/000-default.conf
     
   handlers:
     - name: restart apache

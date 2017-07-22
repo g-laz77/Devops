@@ -1,5 +1,12 @@
 - stat:
-    path: /root/website/checksum
+    path: /root/website/{{ item }}
+  register: p
+- debug:
+    msg: "Path exists and is a directory"
+  when: p.stat.isdir
+
+- stat:
+    path: /root/website/checksum/
   register: stat_result
 
 - name: Create the file, if it doesnt exist already
@@ -12,14 +19,18 @@
 
 - set_fact:
     md5_value: "{{ lookup('file', '/root/website/checksum/{{ item }}.md5') }}"
+  when: not p.stat.isdir
+   
 
 - stat:
     path: /root/website/{{ item }}
   register: existing_file
+  when: not p.stat.isdir
 
 - set_fact:
     file_integrity: "{{ existing_file.stat.md5 == md5_value }}"
   when: existing_file.stat.exists
+  when: not p.stat.isdir
   
 - name: Announce result for {{ item }}
   command: echo "Vulnerability detected!"
