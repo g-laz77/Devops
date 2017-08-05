@@ -9,7 +9,7 @@
     - clamav
     - clamav-daemon
     - clamav-freshclam
-  when: wanted_version_installed.stdout.find('command not found') != -1
+  when: wanted_version_installed.stderr.find('not found') != -1
   
 - name: Update clamAV
   command: freshclam

@@ -1,6 +1,6 @@
 #!/bin/bash
-sudo certbot --apache -d $1 -d www.$1 #install certificate
-https://www.ssllabs.com/ssltest/analyze.html?d=$1&latest #verify the certificate
+sudo ufw allow 'Nginx Full'
+sudo certbot --nginx -d $1 -d www.$1 #install certificate
 (crontab -l 2>/dev/null; 15 3 * * * /usr/bin/certbot renew --quiet)| crontab -
 
 

@@ -10,7 +10,7 @@
   register: stat_result
 
 - name: Create the file, if it doesnt exist already
-  script: /root/devops/Devops/checksum.sh 
+  script: /root/Devops/checksum.sh 
   when: not stat_result.stat.exists
 
 #should run the below commands for all files
