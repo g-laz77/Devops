@@ -33,3 +33,9 @@ sudo apt-get update
 sudo apt-get install clamav-daemon
 sudo apt-get install clamav
 clamscan -r|tail -n 9 >> av_result.txt
+
+### Setup free Domain
+Created using freenom and DNS was validated using manage DNS.
+
+###Validate the functioning of certbot
+Checked with "glaz77.tk" and https authentication was a success!
