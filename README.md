@@ -42,4 +42,5 @@ Checked with "glaz77.tk" and https authentication was a success!
 
 # How to use this?
  - install ansible.
+ - install certbot.
  - run ansible-playbook playbook.yml in the code Directory.
