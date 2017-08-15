@@ -9,11 +9,11 @@
     - clamav
     - clamav-daemon
     - clamav-freshclam
-  when: wanted_version_installed.stdout.find('command not found') != -1
+  when: wanted_version_installed.stderr.find('not found') != -1
   
 - name: Update clamAV
   command: freshclam
-  when: wanted_version_installed.stdout.find('command not found') != -1
+  #when: wanted_version_installed.stdout.find('command not found') != -1
 
 - name: Run clamAV
-  command: bash -c clamscan -r . |tail -n 9 >> av_result.txt
+  command: bash -c "clamscan -r /root/website |tail -n 9 >> /root/website/av_result.txt"
