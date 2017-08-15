@@ -20,7 +20,9 @@
     - include: tasks/checksum.yml
       with_items:
         - "{{ command_result.stdout_lines }}"
-  
+
+    - include: tasks/cert.yml
+
     - include: tasks/clamav.yml
     
     - include: tasks/node.yml   #setup node on remote server
