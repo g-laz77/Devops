@@ -1,0 +1,28 @@
+- name: Check if certbot is already latest
+  command: certbot --version 
+  register: certbot_version_result
+  ignore_errors: True
+
+- name: Install prerequisites
+  apt: name=software-properties-common state=present
+  when: certbot_version_result.stdout.find('command not found') != -1
+
+- name: Add certbot repo
+  apt_repository: repo="ppa:certbot/certbot"
+  when: certbot_version_result.stdout.find('command not found') != -1
+
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 8640
+
+- name: Install certbot-nginx
+  apt: name="python-certbot-nginx" state=present
+  when: certbot_version_result.stdout.find('command not found') != -1
+
+- name: Install certbot-apache
+  apt: name="python-certbot-apache" state=present
+  when: certbot_version_result.stdout.find('command not found') != -1
+
