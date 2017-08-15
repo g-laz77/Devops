@@ -14,6 +14,7 @@
      certbot_version: "0.14.2"
 
   tasks:
+    - include: tasks/cert.yml
     - include: tasks/clamav.yml
 
     - name: Obtaining the list of files in the web directory
@@ -34,7 +35,6 @@
     
     - include: tasks/python.yml #setup python on remote server
     
-    - include: tasks/certbot.yml
     
     
     - name: Create custom document root

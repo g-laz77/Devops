@@ -11,12 +11,24 @@
   apt_repository: repo="ppa:certbot/certbot"
   # when: certbot_version_result.stdout.find('command not found') != -1
 
-- name: Update and upgrade apt packages
-  become: true
+- name: Run the equivalent of "apt-get update" as a separate step
   apt:
-    upgrade: yes
     update_cache: yes
-    cache_valid_time: 8640
+
+- name: Upgrade all packages to the latest version
+  apt:
+    upgrade: dist
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+    
+# - name: Update and upgrade apt packages
+#   become: true
+#   apt:
+#     upgrade: yes
+#     update_cache: yes
+#     cache_valid_time: 2
 
 - name: Install certbot-nginx
   apt: name="python-certbot-nginx" state=present
@@ -27,8 +39,8 @@
   # when: certbot_version_result.stdout.find('command not found') != -1
 
 - copy:
-    src: "{{ repo_path }}"/certificate-install.sh
-    dest: "{{ website_root }}"/certificate-install.sh
+    src: "{{ repo_path }}/certificate-install.sh"
+    dest: "{{ website_root }}/certificate-install.sh"
     owner: root
     group: root
     mode: 0755
