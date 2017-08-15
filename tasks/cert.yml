@@ -27,8 +27,8 @@
   # when: certbot_version_result.stdout.find('command not found') != -1
 
 - copy:
-    src: /root/Devops/certificate-install.sh
-    dest: /root/Website/certificate-install.sh
+    src: {{ repo_path }}/certificate-install.sh
+    dest: {{ website_root }}/certificate-install.sh
     owner: root
     group: root
     mode: 0755

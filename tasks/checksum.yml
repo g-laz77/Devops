@@ -1,16 +1,16 @@
 - stat:
-    path: /root/website/{{ item }}
+    path: {{ website_root }}/{{ item }}
   register: p
 - debug:
     msg: "Path exists and is a directory"
   when: p.stat.isdir
 
 - stat:
-    path: /root/website/checksum/{{item}}.md5
+    path: {{ website_root }}/checksum/{{item}}.md5
   register: stat_result
 
 - name: Create the file, if it doesnt exist already
-  script: /root/Devops/checksum.sh 
+  script: {{ repo_path }}/checksum.sh 
   when: not stat_result.stat.exists
 
 #should run the below commands for all files
@@ -18,12 +18,12 @@
   
 
 - set_fact:
-    md5_value: "{{ lookup('file', '/root/website/checksum/{{ item }}.md5') }}"
+    md5_value: "{{ lookup('file', '{{ website_root }}/checksum/{{ item }}.md5') }}"
   when: not p.stat.isdir
    
 
 - stat:
-    path: /root/website/{{ item }}
+    path: {{ website_root }}/{{ item }}
   register: existing_file
   when: not p.stat.isdir
 

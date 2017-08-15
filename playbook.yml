@@ -17,7 +17,7 @@
     - include: tasks/clamav.yml
 
     - name: Obtaining the list of files in the web directory
-      command: ls -1 /root/website
+      command: ls -1 {{ website_root }}
       register: command_result
       
     - include: tasks/checksum.yml

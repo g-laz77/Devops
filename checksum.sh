@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /root/website
+cd /root/website    # website root to be replaced here
 mkdir checksum
 for f in $("ls")
 do
